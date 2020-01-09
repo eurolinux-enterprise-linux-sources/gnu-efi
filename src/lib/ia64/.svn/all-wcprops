@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/51/trunk/gnu-efi-3.0/lib/ia64
+END
+palproc.S
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/gnu-efi/!svn/ver/51/trunk/gnu-efi-3.0/lib/ia64/palproc.S
+END
+initplat.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/ia64/initplat.c
+END
+palproc.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/gnu-efi/!svn/ver/51/trunk/gnu-efi-3.0/lib/ia64/palproc.h
+END
+math.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/ia64/math.c
+END
+salpal.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/ia64/salpal.c
+END

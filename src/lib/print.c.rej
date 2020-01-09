@@ -1,0 +1,32 @@
+***************
+*** 23,28 ****
+  //
+  
+  #ifdef RUNTIME_CODE
+  #pragma RUNTIME_CODE(DbgPrint)
+  
+  // For debugging..
+--- 23,29 ----
+  //
+  
+  #ifdef RUNTIME_CODE
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(DbgPrint)
+  
+  // For debugging..
+***************
+*** 39,44 ****
+  #pragma RUNTIME_CODE(TimeToString)
+  */
+  
+  #endif
+  
+  //
+--- 40,46 ----
+  #pragma RUNTIME_CODE(TimeToString)
+  */
+  
++ #endif /* !defined(__GNUC__) */
+  #endif
+  
+  //

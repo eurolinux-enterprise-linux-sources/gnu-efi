@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime
+END
+rtlock.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime/rtlock.c
+END
+rtstr.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime/rtstr.c
+END
+rtdata.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime/rtdata.c
+END
+efirtlib.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime/efirtlib.c
+END
+vm.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/runtime/vm.c
+END

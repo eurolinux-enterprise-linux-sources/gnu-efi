@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi
+END
+setjmp_ia32.S
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/setjmp_ia32.S
+END
+setjmp_x86_64.S
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/setjmp_x86_64.S
+END
+reloc_ia32.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/gnu-efi/!svn/ver/54/trunk/gnu-efi-3.0/gnuefi/reloc_ia32.c
+END
+reloc_x86_64.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/54/trunk/gnu-efi-3.0/gnuefi/reloc_x86_64.c
+END
+crt0-efi-ia32.S
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/crt0-efi-ia32.S
+END
+crt0-efi-x86_64.S
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/gnuefi/crt0-efi-x86_64.S
+END
+setjmp_ia64.S
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/setjmp_ia64.S
+END
+elf_ia32_efi.lds
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/gnuefi/elf_ia32_efi.lds
+END
+elf_x86_64_efi.lds
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/gnuefi/elf_x86_64_efi.lds
+END
+reloc_ia64.S
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/reloc_ia64.S
+END
+crt0-efi-ia64.S
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/gnuefi/crt0-efi-ia64.S
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/gnuefi/Makefile
+END
+elf_ia64_efi.lds
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/gnuefi/elf_ia64_efi.lds
+END

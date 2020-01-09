@@ -1,0 +1,40 @@
+8
+
+dir
+53
+https://gnu-efi.svn.sourceforge.net/svnroot/gnu-efi/trunk/gnu-efi-3.0/inc/protocol/ia64
+https://gnu-efi.svn.sourceforge.net/svnroot/gnu-efi
+
+
+
+2007-05-09T18:37:27.574790Z
+12
+noxorc
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+8f1d87b7-2c27-0410-8acf-878dfd288f87
+
+eficontext.h
+file
+
+
+
+
+2008-09-18T16:52:57.000000Z
+97236a8065ef7bcefcdbf90d0d896d87
+2007-05-09T18:37:27.574790Z
+12
+noxorc
+

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/ia32
+END
+initplat.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/ia32/initplat.c
+END
+math.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/ia32/math.c
+END

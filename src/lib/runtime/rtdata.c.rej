@@ -1,0 +1,19 @@
+***************
+*** 26,32 ****
+  // right data section if it is explicitly initialized..
+  //
+  
+  #pragma BEGIN_RUNTIME_DATA()
+  
+  //
+  // RT - pointer to the runtime table
+--- 26,34 ----
+  // right data section if it is explicitly initialized..
+  //
+  
++ #ifndef __GNUC__
+  #pragma BEGIN_RUNTIME_DATA()
++ #endif
+  
+  //
+  // RT - pointer to the runtime table

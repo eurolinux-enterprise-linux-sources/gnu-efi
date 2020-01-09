@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/ia64
+END
+eficontext.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/ia64/eficontext.h
+END

@@ -1,0 +1,18 @@
+***************
+*** 76,81 ****
+                  }
+          }
+  
+          if (!rel || relent == 0)
+                  return EFI_LOAD_ERROR;
+  
+--- 76,84 ----
+                  }
+          }
+  
++        if (!rel && relent == 0)
++                return EFI_SUCCESS;
++ 
+          if (!rel || relent == 0)
+                  return EFI_LOAD_ERROR;
+  

@@ -1,0 +1,38 @@
+***************
+*** 24,30 ****
+  
+  #include "lib.h"
+  
+  #pragma RUNTIME_CODE(RtLibEnableVirtualMappings)
+  VOID
+  RUNTIMEFUNCTION
+  RtLibEnableVirtualMappings (
+--- 24,32 ----
+  
+  #include "lib.h"
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtLibEnableVirtualMappings)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtLibEnableVirtualMappings (
+***************
+*** 64,70 ****
+  }
+  
+  
+  #pragma RUNTIME_CODE(RtConvertList)
+  VOID
+  RUNTIMEFUNCTION
+  RtConvertList (
+--- 66,74 ----
+  }
+  
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtConvertList)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtConvertList (

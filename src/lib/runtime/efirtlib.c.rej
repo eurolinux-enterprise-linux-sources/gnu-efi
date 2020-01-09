@@ -1,0 +1,95 @@
+***************
+*** 20,26 ****
+  #include "efilib.h"
+  #include "efirtlib.h"
+  
+  #pragma RUNTIME_CODE(RtZeroMem)
+  VOID
+  RUNTIMEFUNCTION
+  RtZeroMem (
+--- 20,28 ----
+  #include "efilib.h"
+  #include "efirtlib.h"
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtZeroMem)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtZeroMem (
+***************
+*** 36,42 ****
+      }
+  }
+  
+  #pragma RUNTIME_CODE(RtSetMem)
+  VOID
+  RUNTIMEFUNCTION
+  RtSetMem (
+--- 38,46 ----
+      }
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtSetMem)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtSetMem (
+***************
+*** 53,59 ****
+      }
+  }
+  
+  #pragma RUNTIME_CODE(RtCopyMem)
+  VOID
+  RUNTIMEFUNCTION
+  RtCopyMem (
+--- 57,65 ----
+      }
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtCopyMem)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtCopyMem (
+***************
+*** 71,77 ****
+      }
+  }
+  
+  #pragma RUNTIME_CODE(RtCompareMem)
+  INTN
+  RUNTIMEFUNCTION
+  RtCompareMem (
+--- 77,85 ----
+      }
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtCompareMem)
++ #endif
+  INTN
+  RUNTIMEFUNCTION
+  RtCompareMem (
+***************
+*** 96,102 ****
+      return 0;
+  }
+  
+  #pragma RUNTIME_CODE(RtCompareGuid)
+  INTN
+  RUNTIMEFUNCTION
+  RtCompareGuid (
+--- 104,112 ----
+      return 0;
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtCompareGuid)
++ #endif
+  INTN
+  RUNTIMEFUNCTION
+  RtCompareGuid (

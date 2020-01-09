@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/gnu-efi/!svn/ver/50/trunk/gnu-efi-3.0/apps
+END
+tpause.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/apps/tpause.c
+END
+t.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t.c
+END
+printenv.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/printenv.c
+END
+t2.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t2.c
+END
+t3.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t3.c
+END
+t4.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t4.c
+END
+t5.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t5.c
+END
+t6.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t6.c
+END
+t7.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/apps/t7.c
+END
+trivial.S
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/apps/trivial.S
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/50/trunk/gnu-efi-3.0/apps/Makefile
+END

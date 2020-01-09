@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib
+END
+sread.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/sread.c
+END
+dpath.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/dpath.c
+END
+console.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/console.c
+END
+init.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/init.c
+END
+boxdraw.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/boxdraw.c
+END
+crc.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/crc.c
+END
+str.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/str.c
+END
+data.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/data.c
+END
+hand.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/hand.c
+END
+lib.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/lib.h
+END
+hw.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/hw.c
+END
+event.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/event.c
+END
+debug.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/debug.c
+END
+lock.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/lock.c
+END
+guid.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/guid.c
+END
+error.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/error.c
+END
+misc.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/misc.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/Makefile
+END
+print.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/print.c
+END
+smbios.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/lib/smbios.c
+END

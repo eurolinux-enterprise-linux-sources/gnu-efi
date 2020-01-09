@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/inc
+END
+efipart.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efipart.h
+END
+inc.mak
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/inc.mak
+END
+efilib.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efilib.h
+END
+efifs.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efifs.h
+END
+efiapi.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/inc/efiapi.h
+END
+romload.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/romload.h
+END
+efirtlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efirtlib.h
+END
+efiui.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efiui.h
+END
+make.inf
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/make.inf
+END
+efi_nii.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efi_nii.h
+END
+efi.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efi.h
+END
+eficon.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/eficon.h
+END
+makefile.hdr
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/makefile.hdr
+END
+efiprot.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/inc/efiprot.h
+END
+efistdarg.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efistdarg.h
+END
+efidebug.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efidebug.h
+END
+efinet.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efinet.h
+END
+efierr.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efierr.h
+END
+efiser.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efiser.h
+END
+efigpt.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efigpt.h
+END
+efi_pxe.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efi_pxe.h
+END
+pci22.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/pci22.h
+END
+efilink.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efilink.h
+END
+efidef.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/inc/efidef.h
+END
+efidevp.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/inc/efidevp.h
+END
+libsmbios.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/libsmbios.h
+END
+efipxebc.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/efipxebc.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/50/trunk/gnu-efi-3.0/inc/Makefile
+END

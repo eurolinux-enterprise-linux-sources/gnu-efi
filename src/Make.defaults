@@ -1,0 +1,66 @@
+#
+# Copyright (c) 1999-2007 Hewlett-Packard Development Company, L.P.
+#	Contributed by David Mosberger <davidm@hpl.hp.com>
+#	Contributed by Stephane Eranian <eranian@hpl.hp.com>
+#
+# This file is part of the gnu-efi package.
+#
+#  GNU-EFI is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2, or (at your option)
+#  any later version.
+#
+#  GNU-EFI is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with GNU-EFI; see the file COPYING.  If not, write to the Free
+#  Software Foundation, 59 Temple Place - Suite 330, Boston, MA
+#  02111-1307, USA.
+#
+
+#
+# Where to install the package. GNU-EFI will create and access
+# lib and include under the root
+#
+INSTALLROOT=/usr/local
+LIBDIR=lib
+
+TOPDIR    := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
+
+HOSTARCH   = $(shell uname -m | sed s,i[3456789]86,ia32,)
+ARCH	   := $(shell uname -m | sed s,i[3456789]86,ia32,)
+INCDIR	   = -I$(SRCDIR) -I$(TOPDIR)/inc -I$(TOPDIR)/inc/$(ARCH) -I$(TOPDIR)/inc/protocol 
+CPPFLAGS   = -DCONFIG_$(ARCH)
+CFLAGS	   = $(ARCH3264) -O2 -fpic -Wall -fshort-wchar -fno-strict-aliasing -fno-merge-constants
+ASFLAGS    = $(ARCH3264)
+LDFLAGS	   = -nostdlib
+INSTALL	   = install
+prefix     = /usr/bin/
+
+CC            = $(prefix)gcc
+AS            = $(prefix)as
+LD            = $(prefix)ld
+AR            = $(prefix)ar
+RANLIB        = $(prefix)ranlib
+OBJCOPY       = $(prefix)objcopy
+
+ifeq ($(ARCH),ia64)
+  CFLAGS += -mfixed-range=f32-f127
+endif
+
+ifeq ($(ARCH), ia32)
+  ifeq ($(HOSTARCH), x86_64)
+    ARCH3264 = -m32
+  endif
+endif
+
+ifeq ($(ARCH), x86_64)
+  CFLAGS += -DEFI_FUNCTION_WRAPPER -mno-red-zone 
+  LIBDIR = lib
+  ifeq ($(HOSTARCH), ia32)
+    ARCH3264 = -m64
+  endif
+endif

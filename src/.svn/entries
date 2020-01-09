@@ -1,0 +1,127 @@
+8
+
+dir
+53
+https://gnu-efi.svn.sourceforge.net/svnroot/gnu-efi/trunk/gnu-efi-3.0
+https://gnu-efi.svn.sourceforge.net/svnroot/gnu-efi
+
+
+
+2008-09-18T18:32:08.505168Z
+53
+noxorc
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+8f1d87b7-2c27-0410-8acf-878dfd288f87
+
+README.elilo
+file
+
+
+
+
+2008-09-18T16:52:53.000000Z
+cdef7c59af1513e5e0656c76b2430c02
+2007-05-11T17:03:05.417579Z
+21
+noxorc
+
+debian
+dir
+
+apps
+dir
+
+Make.defaults
+file
+
+
+
+
+2008-09-18T17:05:37.000000Z
+18af6bf5f6ba8fe51fa1377f925741b5
+2008-09-18T18:32:08.505168Z
+53
+noxorc
+
+lib
+dir
+
+Make.rules
+file
+
+
+
+
+2008-09-18T16:52:53.000000Z
+942fa758fbe89dea14aafd9245264b7f
+2007-05-11T17:03:05.417579Z
+21
+noxorc
+
+README.efilib
+file
+
+
+
+
+2008-09-18T16:52:53.000000Z
+d234379cbdd5c97c64554da2fcd07a8e
+2007-05-09T18:37:27.574790Z
+12
+noxorc
+
+ChangeLog
+file
+55
+
+
+
+2008-11-06T14:39:03.000000Z
+b68870feecb3768fdee0a1bdf91781a4
+2008-11-06T14:39:46.699295Z
+55
+noxorc
+
+inc
+dir
+
+README.gnuefi
+file
+
+
+
+
+2008-09-18T16:52:53.000000Z
+043230ca3208c568b394e226f0c3c9b7
+2007-05-11T17:03:05.417579Z
+21
+noxorc
+
+gnuefi
+dir
+
+Makefile
+file
+
+
+
+
+2008-09-18T16:52:53.000000Z
+48bb78db9d7ee16d26b1a87722ae9060
+2008-08-01T18:30:30.288214Z
+50
+noxorc
+

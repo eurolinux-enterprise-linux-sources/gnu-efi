@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/inc/ia64
+END
+efilibplat.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/ia64/efilibplat.h
+END
+efibind.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/inc/ia64/efibind.h
+END
+salproc.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/ia64/salproc.h
+END
+pe.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/ia64/pe.h
+END

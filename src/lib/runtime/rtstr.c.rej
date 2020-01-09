@@ -1,0 +1,133 @@
+***************
+*** 17,23 ****
+  
+  #include "lib.h"
+  
+  #pragma RUNTIME_CODE(RtAcquireLock)
+  INTN
+  RUNTIMEFUNCTION
+  RtStrCmp (
+--- 17,25 ----
+  
+  #include "lib.h"
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtAcquireLock)
++ #endif
+  INTN
+  RUNTIMEFUNCTION
+  RtStrCmp (
+***************
+*** 38,44 ****
+      return *s1 - *s2;
+  }
+  
+  #pragma RUNTIME_CODE(RtStrCpy)
+  VOID
+  RUNTIMEFUNCTION
+  RtStrCpy (
+--- 40,48 ----
+      return *s1 - *s2;
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtStrCpy)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtStrCpy (
+***************
+*** 53,59 ****
+      *Dest = 0;
+  }
+  
+  #pragma RUNTIME_CODE(RtStrCat)
+  VOID
+  RUNTIMEFUNCTION
+  RtStrCat (
+--- 57,65 ----
+      *Dest = 0;
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtStrCat)
++ #endif
+  VOID
+  RUNTIMEFUNCTION
+  RtStrCat (
+***************
+*** 64,70 ****
+      RtStrCpy(Dest+StrLen(Dest), Src);
+  }
+  
+  #pragma RUNTIME_CODE(RtStrLen)
+  UINTN
+  RUNTIMEFUNCTION
+  RtStrLen (
+--- 70,78 ----
+      RtStrCpy(Dest+StrLen(Dest), Src);
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtStrLen)
++ #endif
+  UINTN
+  RUNTIMEFUNCTION
+  RtStrLen (
+***************
+*** 78,84 ****
+      return len;
+  }
+  
+  #pragma RUNTIME_CODE(RtStrSize)
+  UINTN
+  RUNTIMEFUNCTION
+  RtStrSize (
+--- 86,94 ----
+      return len;
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtStrSize)
++ #endif
+  UINTN
+  RUNTIMEFUNCTION
+  RtStrSize (
+***************
+*** 92,98 ****
+      return (len + 1) * sizeof(CHAR16);
+  }
+  
+  #pragma RUNTIME_CODE(RtBCDtoDecimal)
+  UINT8
+  RUNTIMEFUNCTION
+  RtBCDtoDecimal(
+--- 102,110 ----
+      return (len + 1) * sizeof(CHAR16);
+  }
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtBCDtoDecimal)
++ #endif
+  UINT8
+  RUNTIMEFUNCTION
+  RtBCDtoDecimal(
+***************
+*** 108,114 ****
+  }
+  
+  
+  #pragma RUNTIME_CODE(RtDecimaltoBCD)
+  UINT8
+  RUNTIMEFUNCTION
+  RtDecimaltoBCD (
+--- 120,128 ----
+  }
+  
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtDecimaltoBCD)
++ #endif
+  UINT8
+  RUNTIMEFUNCTION
+  RtDecimaltoBCD (

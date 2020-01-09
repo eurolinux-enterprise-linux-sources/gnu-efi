@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol
+END
+intload.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/intload.h
+END
+efivar.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/efivar.h
+END
+eficonsplit.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/eficonsplit.h
+END
+efidbg.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/efidbg.h
+END
+piflash64.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/piflash64.h
+END
+make.inf
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/make.inf
+END
+makefile.hdr
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/makefile.hdr
+END
+vgaclass.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/vgaclass.h
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/readme.txt
+END
+adapterdebug.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/adapterdebug.h
+END
+legacyboot.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/inc/protocol/legacyboot.h
+END

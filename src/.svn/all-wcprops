@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0
+END
+README.elilo
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/README.elilo
+END
+Make.defaults
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/Make.defaults
+END
+Make.rules
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/Make.rules
+END
+README.efilib
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/17/trunk/gnu-efi-3.0/README.efilib
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/gnu-efi/!svn/ver/55/trunk/gnu-efi-3.0/ChangeLog
+END
+README.gnuefi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/README.gnuefi
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/gnu-efi/!svn/ver/50/trunk/gnu-efi-3.0/Makefile
+END

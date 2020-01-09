@@ -1,0 +1,38 @@
+***************
+*** 21,27 ****
+  
+  
+  
+  #pragma RUNTIME_CODE(RtAcquireLock)
+  VOID
+  RtAcquireLock (
+      IN FLOCK    *Lock
+--- 21,29 ----
+  
+  
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtAcquireLock)
++ #endif
+  VOID
+  RtAcquireLock (
+      IN FLOCK    *Lock
+***************
+*** 58,64 ****
+  }
+  
+  
+  #pragma RUNTIME_CODE(RtAcquireLock)
+  VOID
+  RtReleaseLock (
+      IN FLOCK    *Lock
+--- 60,68 ----
+  }
+  
+  
++ #ifndef __GNUC__
+  #pragma RUNTIME_CODE(RtAcquireLock)
++ #endif
+  VOID
+  RtReleaseLock (
+      IN FLOCK    *Lock

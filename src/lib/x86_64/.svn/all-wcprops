@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/x86_64
+END
+efi_stub.S
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/44/trunk/gnu-efi-3.0/lib/x86_64/efi_stub.S
+END
+initplat.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/21/trunk/gnu-efi-3.0/lib/x86_64/initplat.c
+END
+callwrap.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/gnu-efi/!svn/ver/44/trunk/gnu-efi-3.0/lib/x86_64/callwrap.c
+END
+math.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/gnu-efi/!svn/ver/53/trunk/gnu-efi-3.0/lib/x86_64/math.c
+END
