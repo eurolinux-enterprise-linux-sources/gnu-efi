@@ -40,6 +40,15 @@ static inline void set_bit(volatile uint32_t *flag, int bit, int value)
 	Print(L"new value is 0x%2x\n", val);
 }
 
+static inline int configspace_matches_ids(void *config, uint32_t vendor_id,
+				uint32_t device_id)
+{
+	uint32_t *cfg = config;
+	if (cfg[0] == vendor_id && cfg[1] == device_id)
+		return 1;
+	return 0;
+}
+
 static int is_device(EFI_PCI_IO *pciio, uint16_t vendor_id, uint16_t device_id)
 {
 	lpcif_t lpcif;
@@ -59,7 +68,8 @@ static EFI_STATUS find_pci_device(uint16_t vendor_id, uint16_t device_id,
 {
 	EFI_STATUS rc;
 	EFI_HANDLE *Handles;
-	UINTN NoHandles, i;
+	UINTN NoHandles;
+	int i;
 
 	if (!pciio)
 		return EFI_INVALID_PARAMETER;

@@ -55,8 +55,8 @@ typedef struct {
     BOOLEAN             Ascii;
     UINTN               Index;
     union {
-        CONST CHAR16    *pw;
-        CONST CHAR8     *pc;
+        CHAR16          *pw;
+        CHAR8           *pc;
     } un;
 } POINTER;
 
@@ -88,16 +88,16 @@ typedef struct _pstate {
     CHAR16      *Pos;
     UINTN       Len;
 
-    UINTN       Attr;
+    UINTN       Attr;    
     UINTN       RestoreAttr;
 
     UINTN       AttrNorm;
     UINTN       AttrHighlight;
     UINTN       AttrError;
 
-    INTN        (EFIAPI *Output)(VOID *context, CHAR16 *str);
-    INTN        (EFIAPI *SetAttr)(VOID *context, UINTN attr);
-    VOID        *Context;
+    INTN EFIAPI       (*Output)(VOID *context, CHAR16 *str);
+    INTN EFIAPI       (*SetAttr)(VOID *context, UINTN attr);
+    VOID        *Context;    
 
     // Current item being formatted
     struct _pitem  *Item;
@@ -119,8 +119,8 @@ _IPrint (
     IN UINTN                            Column,
     IN UINTN                            Row,
     IN SIMPLE_TEXT_OUTPUT_INTERFACE     *Out,
-    IN CONST CHAR16                     *fmt,
-    IN CONST CHAR8                      *fmta,
+    IN CHAR16                           *fmt,
+    IN CHAR8                            *fmta,
     IN va_list                          args
     );
 
@@ -181,8 +181,8 @@ _PoolPrint (
 
 INTN
 DbgPrint (
-    IN INTN         mask,
-    IN CONST CHAR8  *fmt,
+    IN INTN      mask,
+    IN CHAR8     *fmt,
     ...
     )
 /*++
@@ -194,7 +194,7 @@ Routine Description:
 Arguments:
 
     mask        - Bit mask of debug string.  If a bit is set in the
-                  mask that is also set in EFIDebug the string is
+                  mask that is also set in EFIDebug the string is 
                   printed; otherwise, the string is not printed
 
     fmt         - Format string
@@ -220,11 +220,11 @@ Returns:
     va_start (args, fmt);
     ZeroMem (&ps, sizeof(ps));
 
-    ps.Output = _DbgOut;
+    ps.Output = _DbgOut; 
     ps.fmt.Ascii = TRUE;
     ps.fmt.pc = fmt;
     va_copy(ps.args, args);
-    ps.Attr = EFI_TEXT_ATTR(EFI_LIGHTGRAY, EFI_RED);
+    ps.Attr = EFI_TEXT_ATTR(EFI_LIGHTGRAY, EFI_RED); 
 
     DbgOut = LibRuntimeDebugOut;
 
@@ -235,7 +235,7 @@ Returns:
     if (DbgOut) {
         ps.Attr = DbgOut->Mode->Attribute;
         ps.Context = DbgOut;
-        ps.SetAttr = (INTN (EFIAPI *)(VOID *, UINTN))  DbgOut->SetAttribute;
+        ps.SetAttr = (INTN EFIAPI (*)(VOID *, UINTN))  DbgOut->SetAttribute;
     }
 
     SavedAttribute = ps.Attr;
@@ -257,7 +257,7 @@ Returns:
 
     if (ps.SetAttr) {
         ps.Attr = attr;
-        uefi_call_wrapper(ps.SetAttr, 2, ps.Context, attr);
+        ps.SetAttr (ps.Context, attr);
     }
 
     _Print (&ps);
@@ -270,9 +270,9 @@ Returns:
     //
 
     if (ps.SetAttr) {
-        uefi_call_wrapper(ps.SetAttr, 2, ps.Context, SavedAttribute);
+        ps.SetAttr (ps.Context, SavedAttribute);
     }
-
+    
     return 0;
 }
 
@@ -345,7 +345,7 @@ _SPrint (
     if (spc->len < spc->maxlen) {
         spc->str[spc->len] = 0;
     } else if (spc->maxlen) {
-        spc->str[spc->maxlen] = 0;
+        spc->str[spc->maxlen-1] = 0;
     }
 
     return 0;
@@ -378,8 +378,8 @@ _PoolPrint (
         newlen += PRINT_STRING_LEN;
         spc->maxlen = newlen;
         spc->str = ReallocatePool (
-                        spc->str,
-                        spc->len * sizeof(CHAR16),
+                        spc->str, 
+                        spc->len * sizeof(CHAR16), 
                         spc->maxlen * sizeof(CHAR16)
                         );
 
@@ -400,10 +400,10 @@ _PoolPrint (
 
 VOID
 _PoolCatPrint (
-    IN CONST CHAR16     *fmt,
+    IN CHAR16           *fmt,
     IN va_list          args,
     IN OUT POOL_PRINT   *spc,
-    IN INTN             (EFIAPI *Output)(VOID *context, CHAR16 *str)
+    IN INTN EFIAPI      (*Output)(VOID *context, CHAR16 *str)
     )
 // Dispath function for SPrint, PoolPrint, and CatPrint
 {
@@ -421,52 +421,10 @@ _PoolCatPrint (
 
 
 UINTN
-VSPrint (
-    OUT CHAR16        *Str,
-    IN UINTN          StrSize,
-    IN CONST CHAR16   *fmt,
-    va_list           args
-    )
-/*++
-
-Routine Description:
-
-    Prints a formatted unicode string to a buffer using a va_list
-
-Arguments:
-
-    Str         - Output buffer to print the formatted string into
-
-    StrSize     - Size of Str.  String is truncated to this size.
-                  A size of 0 means there is no limit
-
-    fmt         - The format string
-
-    args        - va_list
-
-
-Returns:
-
-    String length returned in buffer
-
---*/
-{
-    POOL_PRINT          spc;
-
-    spc.str    = Str;
-    spc.maxlen = StrSize / sizeof(CHAR16) - 1;
-    spc.len    = 0;
-
-    _PoolCatPrint (fmt, args, &spc, _SPrint);
-
-    return spc.len;
-}
-
-UINTN
 SPrint (
-    OUT CHAR16        *Str,
-    IN UINTN          StrSize,
-    IN CONST CHAR16   *fmt,
+    OUT CHAR16  *Str,
+    IN UINTN    StrSize,
+    IN CHAR16   *fmt,
     ...
     )
 /*++
@@ -490,50 +448,24 @@ Returns:
 
 --*/
 {
-    va_list          args;
-    UINTN            len;
+    POOL_PRINT          spc;
+    va_list             args;
+
 
     va_start (args, fmt);
-    len = VSPrint(Str, StrSize, fmt, args);
+    spc.str    = Str;
+    spc.maxlen = StrSize / sizeof(CHAR16) - 1;
+    spc.len    = 0;
+
+    _PoolCatPrint (fmt, args, &spc, _SPrint);
     va_end (args);
-
-    return len;
+    return spc.len;
 }
 
-CHAR16 *
-VPoolPrint (
-    IN CONST CHAR16     *fmt,
-    va_list             args
-    )
-/*++
-
-Routine Description:
-
-    Prints a formatted unicode string to allocated pool using va_list argument.
-    The caller must free the resulting buffer.
-
-Arguments:
-
-    fmt         - The format string
-    args        - The arguments in va_list form
-
-Returns:
-
-    Allocated buffer with the formatted string printed in it.
-    The caller must free the allocated buffer.   The buffer
-    allocation is not packed.
-
---*/
-{
-    POOL_PRINT          spc;
-    ZeroMem (&spc, sizeof(spc));
-    _PoolCatPrint (fmt, args, &spc, _PoolPrint);
-    return spc.str;
-}
 
 CHAR16 *
 PoolPrint (
-    IN CONST CHAR16     *fmt,
+    IN CHAR16           *fmt,
     ...
     )
 /*++
@@ -549,43 +481,47 @@ Arguments:
 
 Returns:
 
-    Allocated buffer with the formatted string printed in it.
+    Allocated buffer with the formatted string printed in it.  
     The caller must free the allocated buffer.   The buffer
     allocation is not packed.
 
 --*/
 {
-    va_list args;
-    CHAR16 *pool;
+    POOL_PRINT          spc;
+    va_list             args;
+
+    ZeroMem (&spc, sizeof(spc));
     va_start (args, fmt);
-    pool = VPoolPrint(fmt, args);
+    _PoolCatPrint (fmt, args, &spc, _PoolPrint);
     va_end (args);
-    return pool;
+    return spc.str;
 }
+
+
 
 CHAR16 *
 CatPrint (
     IN OUT POOL_PRINT   *Str,
-    IN CONST CHAR16     *fmt,
+    IN CHAR16           *fmt,
     ...
     )
 /*++
 
 Routine Description:
 
-    Concatenates a formatted unicode string to allocated pool.
+    Concatenates a formatted unicode string to allocated pool.  
     The caller must free the resulting buffer.
 
 Arguments:
 
-    Str         - Tracks the allocated pool, size in use, and
+    Str         - Tracks the allocated pool, size in use, and 
                   amount of pool allocated.
 
     fmt         - The format string
 
 Returns:
 
-    Allocated buffer with the formatted string printed in it.
+    Allocated buffer with the formatted string printed in it.  
     The caller must free the allocated buffer.   The buffer
     allocation is not packed.
 
@@ -603,7 +539,7 @@ Returns:
 
 UINTN
 Print (
-    IN CONST CHAR16   *fmt,
+    IN CHAR16   *fmt,
     ...
     )
 /*++
@@ -633,8 +569,8 @@ Returns:
 
 UINTN
 VPrint (
-    IN CONST CHAR16   *fmt,
-    va_list           args
+    IN CHAR16   *fmt,
+    va_list     args
     )
 /*++
 
@@ -658,16 +594,16 @@ Returns:
 
 UINTN
 PrintAt (
-    IN UINTN          Column,
-    IN UINTN          Row,
-    IN CONST CHAR16   *fmt,
+    IN UINTN     Column,
+    IN UINTN     Row,
+    IN CHAR16    *fmt,
     ...
     )
 /*++
 
 Routine Description:
 
-    Prints a formatted unicode string to the default console, at
+    Prints a formatted unicode string to the default console, at 
     the supplied cursor position
 
 Arguments:
@@ -695,7 +631,7 @@ Returns:
 UINTN
 IPrint (
     IN SIMPLE_TEXT_OUTPUT_INTERFACE    *Out,
-    IN CONST CHAR16                    *fmt,
+    IN CHAR16                          *fmt,
     ...
     )
 /*++
@@ -731,7 +667,7 @@ IPrintAt (
     IN SIMPLE_TEXT_OUTPUT_INTERFACE     *Out,
     IN UINTN                            Column,
     IN UINTN                            Row,
-    IN CONST CHAR16                     *fmt,
+    IN CHAR16                           *fmt,
     ...
     )
 /*++
@@ -743,7 +679,7 @@ Routine Description:
 
 Arguments:
 
-    Out         - The console to print the string to
+    Out         - The console to print the string too
 
     Column, Row - The cursor position to print the string at
 
@@ -759,7 +695,7 @@ Returns:
     UINTN       back;
 
     va_start (args, fmt);
-    back = _IPrint (Column, Row, Out, fmt, NULL, args);
+    back = _IPrint (Column, Row, ST->ConOut, fmt, NULL, args);
     va_end (args);
     return back;
 }
@@ -770,8 +706,8 @@ _IPrint (
     IN UINTN                            Column,
     IN UINTN                            Row,
     IN SIMPLE_TEXT_OUTPUT_INTERFACE     *Out,
-    IN CONST CHAR16                     *fmt,
-    IN CONST CHAR8                      *fmta,
+    IN CHAR16                           *fmt,
+    IN CHAR8                            *fmta,
     IN va_list                          args
     )
 // Display string worker for: Print, PrintAt, IPrint, IPrintAt
@@ -781,10 +717,10 @@ _IPrint (
 
     ZeroMem (&ps, sizeof(ps));
     ps.Context = Out;
-    ps.Output  = (INTN (EFIAPI *)(VOID *, CHAR16 *)) Out->OutputString;
-    ps.SetAttr = (INTN (EFIAPI *)(VOID *, UINTN))  Out->SetAttribute;
+    ps.Output  = (INTN EFIAPI (*)(VOID *, CHAR16 *)) Out->OutputString;
+    ps.SetAttr = (INTN EFIAPI (*)(VOID *, UINTN))  Out->SetAttribute;
     ps.Attr = Out->Mode->Attribute;
-
+   
     back = (ps.Attr >> 4) & 0xF;
     ps.AttrNorm = EFI_TEXT_ATTR(EFI_LIGHTGRAY, back);
     ps.AttrHighlight = EFI_TEXT_ATTR(EFI_WHITE, back);
@@ -811,7 +747,7 @@ _IPrint (
 
 UINTN
 APrint (
-    IN CONST CHAR8    *fmt,
+    IN CHAR8    *fmt,
     ...
     )
 /*++
@@ -850,7 +786,7 @@ PFLUSH (
 {
     *ps->Pos = 0;
     if (IsLocalPrint(ps->Output))
-	ps->Output(ps->Context, ps->Buffer);
+	ps->Output(ps->Context, ps->Buffer);		
     else
     	uefi_call_wrapper(ps->Output, 2, ps->Context, ps->Buffer);
     ps->Pos = ps->Buffer;
@@ -871,7 +807,7 @@ PSETATTR (
    }
 
    ps->Attr = Attr;
-}
+}   
 
 STATIC
 VOID
@@ -957,7 +893,7 @@ PITEM (
     }
 
     // add the item
-    Item->Item.Index=0;
+    Item->Item.Index=0; 
     while (Item->Item.Index < Len) {
         PPUTC (ps, PGETC(&Item->Item));
     }
@@ -987,7 +923,7 @@ Routine Description:
   Args F:
     0       -   pad with zeros
     -       -   justify on left (default is on right)
-    ,       -   add comma's to field
+    ,       -   add comma's to field    
     *       -   width provided on stack
     n       -   Set output attribute to normal (for this field only)
     h       -   Set output attribute to highlight (for this field only)
@@ -998,9 +934,7 @@ Routine Description:
     s       -   unicode string
     X       -   fixed 8 byte value in hex
     x       -   hex value
-    d       -   value as signed decimal
-    u       -   value as unsigned decimal
-    f       -   value as floating point
+    d       -   value as decimal    
     c       -   Unicode char
     t       -   EFI time structure
     g       -   Pointer to GUID
@@ -1010,14 +944,14 @@ Routine Description:
     H       -   Set output attribute to highlight
     E       -   Set output attribute to error
     %       -   Print a %
-
+    
 Arguments:
 
     SystemTable     - The system table
 
 Returns:
 
-    Number of charactors written
+    Number of charactors written   
 
 --*/
 {
@@ -1037,7 +971,7 @@ Returns:
 
         if (c != '%') {
             PPUTC ( ps, c );
-            continue;
+            continue;   
         }
 
         // setup for new item
@@ -1056,14 +990,14 @@ Returns:
         while ((c = PGETC(&ps->fmt))) {
 
             switch (c) {
-
+            
             case '%':
                 //
                 // %% -> %
                 //
-                Item.Scratch[0] = '%';
-                Item.Scratch[1] = 0;
                 Item.Item.pw = Item.Scratch;
+                Item.Item.pw[0] = '%';  
+                Item.Item.pw[1] = 0;
                 break;
 
             case '0':
@@ -1085,7 +1019,7 @@ Returns:
             case '*':
                 *Item.WidthParse = va_arg(ps->args, UINTN);
                 break;
-
+            
             case '1':
             case '2':
             case '3':
@@ -1119,9 +1053,9 @@ Returns:
                 break;
 
             case 'c':
-                Item.Scratch[0] = (CHAR16) va_arg(ps->args, UINTN);
-                Item.Scratch[1] = 0;
                 Item.Item.pw = Item.Scratch;
+                Item.Item.pw[0] = (CHAR16) va_arg(ps->args, UINTN);  
+                Item.Item.pw[1] = 0;
                 break;
 
             case 'l':
@@ -1131,59 +1065,38 @@ Returns:
             case 'X':
                 Item.Width = Item.Long ? 16 : 8;
                 Item.Pad = '0';
-#if __GNUC__ >= 7
-		__attribute__ ((fallthrough));
-#endif
             case 'x':
+                Item.Item.pw = Item.Scratch;
                 ValueToHex (
-                    Item.Scratch,
+                    Item.Item.pw, 
                     Item.Long ? va_arg(ps->args, UINT64) : va_arg(ps->args, UINT32)
                     );
-                Item.Item.pw = Item.Scratch;
 
                 break;
-
+        
 
             case 'g':
-                GuidToString (Item.Scratch, va_arg(ps->args, EFI_GUID *));
                 Item.Item.pw = Item.Scratch;
-                break;
-
-            case 'u':
-                ValueToString (
-                    Item.Scratch,
-                    Item.Comma,
-                    Item.Long ? va_arg(ps->args, UINT64) : va_arg(ps->args, UINT32)
-                    );
-                Item.Item.pw = Item.Scratch;
+                GuidToString (Item.Item.pw, va_arg(ps->args, EFI_GUID *));
                 break;
 
             case 'd':
+                Item.Item.pw = Item.Scratch;
                 ValueToString (
-                    Item.Scratch,
-                    Item.Comma,
-                    Item.Long ? va_arg(ps->args, INT64) : va_arg(ps->args, INT32)
+                    Item.Item.pw, 
+                    Item.Comma, 
+                    Item.Long ? va_arg(ps->args, UINT64) : va_arg(ps->args, UINT32)
                     );
-                Item.Item.pw = Item.Scratch;
-                break;
-
-            case 'f':
-                FloatToString (
-                    Item.Scratch,
-                    Item.Comma,
-                    va_arg(ps->args, double)
-                    );
-                Item.Item.pw = Item.Scratch;
-                break;
-
+                break
+                    ;
             case 't':
-                TimeToString (Item.Scratch, va_arg(ps->args, EFI_TIME *));
                 Item.Item.pw = Item.Scratch;
+                TimeToString (Item.Item.pw, va_arg(ps->args, EFI_TIME *));
                 break;
 
             case 'r':
-                StatusToString (Item.Scratch, va_arg(ps->args, EFI_STATUS));
                 Item.Item.pw = Item.Scratch;
+                StatusToString (Item.Item.pw, va_arg(ps->args, EFI_STATUS));
                 break;
 
             case 'n':
@@ -1211,9 +1124,9 @@ Returns:
                 break;
 
             default:
-                Item.Scratch[0] = '?';
-                Item.Scratch[1] = 0;
                 Item.Item.pw = Item.Scratch;
+                Item.Item.pw[0] = '?';
+                Item.Item.pw[1] = 0;
                 break;
             }
 
@@ -1263,8 +1176,7 @@ ValueToHex (
     p2 = Buffer;
 
     while (v) {
-        // Without the cast, the MSVC compiler may insert a reference to __allmull
-        *(p1++) = Hex[(UINTN)(v & 0xf)];
+        *(p1++) = Hex[v & 0xf];
         v = RShiftU64 (v, 4);
     }
 
@@ -1321,59 +1233,6 @@ ValueToString (
 }
 
 VOID
-FloatToString (
-    IN CHAR16   *Buffer,
-    IN BOOLEAN  Comma,
-    IN double   v
-    )
-{
-    /*
-     * Integer part.
-     */
-    INTN i = (INTN)v;
-    ValueToString(Buffer, Comma, i);
-
-
-    /*
-     * Decimal point.
-     */
-    UINTN x = StrLen(Buffer);
-    Buffer[x] = L'.';
-    x++;
-
-
-    /*
-     * Keep fractional part.
-     */
-    float f = (float)(v - i);
-    if (f < 0) f = -f;
-
-
-    /*
-     * Leading fractional zeroes.
-     */
-    f *= 10.0;
-    while (   (f != 0)
-           && ((INTN)f == 0))
-    {
-      Buffer[x] = L'0';
-      x++;
-      f *= 10.0;
-    }
-
-
-    /*
-     * Fractional digits.
-     */
-    while ((float)(INTN)f != f)
-    {
-      f *= 10;
-    }
-    ValueToString(Buffer + x, FALSE, (INTN)f);
-    return;
-}
-
-VOID
 TimeToString (
     OUT CHAR16      *Buffer,
     IN EFI_TIME     *Time
@@ -1394,7 +1253,7 @@ TimeToString (
     }
 
     Year = Time->Year % 100;
-
+    
     // bugbug: for now just print it any old way
     SPrint (Buffer, 0, L"%02d/%02d/%02d  %02d:%02d%c",
         Time->Month,
@@ -1404,7 +1263,7 @@ TimeToString (
         Time->Minute,
         AmPm
         );
-}
+} 
 
 
 
@@ -1419,7 +1278,7 @@ DumpHex (
 {
     CHAR8           *Data, Val[50], Str[20], c;
     UINTN           Size, Index;
-
+    
     UINTN           ScreenCount;
     UINTN           TempColumn;
     UINTN           ScreenSize;

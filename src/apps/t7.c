@@ -18,8 +18,8 @@ efi_main (EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 
 	efi_status = uefi_call_wrapper(ST->ConIn->ReadKeyStroke, 2, ST->ConIn, &efi_input_key);
 
-	Print(L"ScanCode: %xh  UnicodeChar: %xh CallRtStatus: %x\n",
-		efi_input_key.ScanCode, efi_input_key.UnicodeChar, efi_status);
+	Print(L"ScanCode: %xh  UnicodeChar: %xh\n",
+		efi_input_key.ScanCode, efi_input_key.UnicodeChar);
 
 	return EFI_SUCCESS;
 }

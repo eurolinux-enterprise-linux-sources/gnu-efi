@@ -40,9 +40,7 @@
 
 #include <elf.h>
 
-EFI_STATUS _relocate (long ldbase, Elf64_Dyn *dyn,
-		      EFI_HANDLE image EFI_UNUSED,
-		      EFI_SYSTEM_TABLE *systab EFI_UNUSED)
+EFI_STATUS _relocate (long ldbase, Elf64_Dyn *dyn, EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 {
 	long relsz = 0, relent = 0;
 	Elf64_Rel *rel = 0;
@@ -73,8 +71,8 @@ EFI_STATUS _relocate (long ldbase, Elf64_Dyn *dyn,
         if (!rel && relent == 0)
                 return EFI_SUCCESS;
 
-	if (!rel || relent == 0)
-		return EFI_LOAD_ERROR;
+ 	if (!rel || relent == 0)
+ 		return EFI_LOAD_ERROR;
 
 	while (relsz > 0) {
 		/* apply the relocs */

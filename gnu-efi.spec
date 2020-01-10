@@ -1,78 +1,26 @@
 Summary: Development Libraries and headers for EFI
 Name: gnu-efi
-Version: 3.0.8
-%global tarball_version 3.0.6
-Release: 2%{?dist}%{?buildid}
-Epoch: 1
+Version: 3.0u
+Release: 1%{?dist}
 Group: Development/System
 License: BSD 
 URL: ftp://ftp.hpl.hp.com/pub/linux-ia64
+Source: ftp://ftp.hpl.hp.com/pub/linux-ia64/gnu-efi_%{version}.orig.tar.gz
+Patch0001: 0001-fix-compilation-on-x86_64-without-HAVE_USE_MS_ABI.patch
+Patch0002: 0002-be-more-pedantic-when-linking.patch
+Patch0003: 0003-Sample-boot-service-driver.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-ExclusiveArch: x86_64 aarch64
+ExclusiveArch: x86_64
 BuildRequires: git
-%ifarch x86_64
-BuildRequires: glibc32
-#BuildRequires: glibc-devel(x86-32)
-%endif
-Source: http://superb-dca2.dl.sourceforge.net/project/gnu-efi/gnu-efi-%{tarball_version}.tar.bz2
-
-# to make rpmlint shut up
-%define lib %{nil}lib%{nil}
-
-Patch0001: 0001-PATCH-Disable-AVX-instruction-set-on-IA32-and-x86_64.patch
-Patch0002: 0002-Use-ARFLAGS-when-invoking-ar.patch
-Patch0003: 0003-Stripped-diff-for-makefile.patch
-Patch0004: 0004-Make-sure-stdint.h-is-always-used-with-MSVC-on-ARM-A.patch
-Patch0005: 0005-Add-EFI_DRIVER_ENTRY_POINT-support-for-MSVC-ARM64.patch
-Patch0006: 0006-Move-memcpy-memset-definition-to-global-init.c.patch
-Patch0007: 0007-Bump-revision-from-VERSION-3.0.6-to-VERSION-3.0.7.patch
-Patch0008: 0008-Currently-we-have-DivU64x32-on-ia32-but-it-tries-to-.patch
-Patch0009: 0009-gnuefi-preserve-.gnu.hash-sections-unbreaks-elilo-on.patch
-Patch0010: 0010-gnu-efi-fix-lib-ia64-setjmp.S-IA-64-build-failure.patch
-Patch0011: 0011-Fix-some-types-gcc-doesn-t-like.patch
-Patch0012: 0012-Fix-arm-build-paths-in-the-makefile.patch
-Patch0013: 0013-Work-around-Werror-maybe-uninitialized-not-being-ver.patch
-Patch0014: 0014-Fix-a-sign-error-in-the-debughook-example-app.patch
-Patch0015: 0015-Fix-typedef-of-EFI_PXE_BASE_CODE.patch
-Patch0016: 0016-make-clang-not-complain-about-fno-merge-all-constant.patch
-Patch0017: 0017-Fix-another-place-clang-complains-about.patch
-Patch0018: 0018-gnu-efi-add-some-more-common-string-functions.patch
-Patch0019: 0019-Add-D-to-print-device-paths.patch
-Patch0020: 0020-Make-ARCH-overrideable-on-the-command-line.patch
-Patch0021: 0021-apps-Add-bltgrid-and-lfbgrid-and-add-error-checks-to.patch
-Patch0022: 0022-Nerf-Werror-pragma-away.patch
-Patch0023: 0023-Call-ar-in-deterministic-mode.patch
-Patch0024: 0024-Add-debug-helper-applications.patch
-Patch0025: 0025-Bump-revision-from-VERSION-3.0.7-to-VERSION-3.0.8.patch
-Patch0026: 0026-Work-around-some-intptr_t-weirdnesses.patch
-Patch0027: 0027-Fix-a-minor-coverity-complaint-in-some-apps.patch
 
 %define debug_package %{nil}
 
-# brp-strip-static-archive will senselessly /add/ timestamps and uid/gid
-# data to our .a and make them not multilib clean if we don't have this.
-# Note that if we don't have the shell quotes there, -p becomes $2 on its
-# invocation, and so it completely ignores it.
-#
-# Also note that if we try to use -D as we should (so it doesn't add
-# uid/gid), strip(1) from binutils-2.25.1-22.base.el7.x86_64 throws a
-# syntax error.
-#
-# True story.
-#
-%global __strip "%{__strip} -p"
-
 # Figure out the right file path to use
-%global efidir %(eval echo $(grep ^ID= /etc/os-release | sed -e 's/^ID=//' -e 's/rhel/redhat/'))
-
-%ifarch x86_64
-%global efiarch x86_64
+%if 0%{?rhel}
+%global efidir redhat
 %endif
-%ifarch aarch64
-%global efiarch aarch64
-%endif
-%ifarch %{ix86}
-%global efiarch ia32
+%if 0%{?fedora}
+%global efidir fedora
 %endif
 
 %description
@@ -82,8 +30,7 @@ applications that run under EFI (Extensible Firmware Interface).
 %package devel
 Summary: Development Libraries and headers for EFI
 Group: Development/System
-Obsoletes: gnu-efi < 1:3.0.2-1
-Requires: gnu-efi
+Obsoletes: gnu-efi < %{version}-%{release}
 
 %description devel
 This package contains development headers and libraries for developing
@@ -94,52 +41,40 @@ Summary: Utilities for EFI systems
 Group: Applications/System
 
 %description utils
-This package contains utilities for debugging and developing EFI systems.
+This package contains utilties for debugging and developing EFI systems.
 
 %prep
-%setup -q -n gnu-efi-%{tarball_version}
+%setup -q -n gnu-efi-3.0
 git init
-git config user.email "gnu-efi-owner@redhat.com"
-git config user.name "RHEL Ninjas"
-git config sendemail.to "gnu-efi-owner@fedoraproject.org"
+git config user.email "pjones@fedoraproject.org"
+git config user.name "Fedora Ninjas"
 git add .
 git commit -a -q -m "%{version} baseline."
 git am %{patches} </dev/null
-git config --unset user.email
-git config --unset user.name
 
 %build
-# Package cannot build with %%{?_smp_mflags}.
+# Package cannot build with %{?_smp_mflags}.
 make
-make apps
-%ifarch x86_64
-setarch linux32 -B make ARCH=ia32 PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib
-setarch linux32 -B make ARCH=ia32 PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib apps
-%endif
 
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}/%{_libdir}/gnuefi
-mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/%{efiarch}
+mkdir -p %{buildroot}/%{_libdir}
+
 make PREFIX=%{_prefix} LIBDIR=%{_libdir} INSTALLROOT=%{buildroot} install
+
+mkdir -p %{buildroot}/%{_libdir}/gnuefi
 mv %{buildroot}/%{_libdir}/*.lds %{buildroot}/%{_libdir}/*.o %{buildroot}/%{_libdir}/gnuefi
-mv %{efiarch}/apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/%{efiarch}/
 
-%ifarch x86_64
-mkdir -p %{buildroot}/%{_prefix}/lib/gnuefi
-mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/ia32
-
-setarch linux32 -B make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} ARCH=ia32 install
-mv %{buildroot}/%{_prefix}/lib/*.{lds,o} %{buildroot}/%{_prefix}/lib/gnuefi/
-mv ia32/apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/ia32/
-%endif
+make -C apps clean route80h.efi modelist.efi
+mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/
+mv apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_prefix}/lib*/*
+%{_libdir}/*
 
 %files devel
 %defattr(-,root,root,-)
@@ -147,121 +82,10 @@ rm -rf %{buildroot}
 %{_includedir}/efi
 
 %files utils
-%dir %attr(0700,root,root) /boot/efi/EFI/%{efidir}/%{efiarch}/
-%attr(0700,root,root) /boot/efi/EFI/%{efidir}/%{efiarch}/*.efi
-%ifarch x86_64
-%dir %attr(0700,root,root) /boot/efi/EFI/%{efidir}/ia32/
-%attr(0700,root,root) /boot/efi/EFI/%{efidir}/ia32/*.efi
-%endif
+%dir /boot/efi/EFI/%{efidir}/
+%attr(0644,root,root) /boot/efi/EFI/%{efidir}/*.efi
 
 %changelog
-* Mon Jun 11 2018 Peter Jones <pjones@redhat.com> - 3.0.8-2
-- Fix some minor coverity complaints.
-  Related: rhbz#1570032
-
-* Fri Jun 08 2018 Peter Jones <pjones@redhat.com> - 3.0.8-1
-- Update to version required by fwupdate-12 and shim-15.
-  Related: rhbz#1570032
-
-* Thu Mar 30 2017 Peter Jones <pjones@redhat.com> - 3.0.5-9
-- Just don't build the .i686 package at all.  After a scratch build, it's
-  clear that "strip -p" is not good enough, because our different builders
-  have non-matching UIDs for the build process, and -p adds uid/gid to the
-  archive.  So there's no way to fix the multiarch conflict here without
-  either fixing that or fixing strip(1) with:
-  https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=patch;h=7a093a78
-  We don't strictly need the .i686 package anyway, since we've moved to
-  making the dependent binaries all build the ia32 bits on x86_64 for
-  other reasons.  Related: rhbz#1310782
-
-* Thu Mar 30 2017 Peter Jones <pjones@redhat.com> - 3.0.5-9
-- One more attempt at nerfing timestamps.  It's surprising how broken this
-  can be.
-
-  "ar rDv" works just fine, but
-  /usr/lib/rpm/redhat/brp-strip-static-archive is calling "%%{__strip} -g
-  $for_each.a", and it's rewriting our binary from ts/uid/gid of 0/0/0 to
-  $epoch/$UID/$GID.  Awesomely /usr/bin/strip it seems to have 3 modes of
-  operation:
-  -U: the default, which adds $epoch/$UID/$GID to your binary archive
-      instead of just removing stuff.  Clearly the Principle of Least
-      Surprise is strong here.
-  -p: preserve the timestamp from the original .a, but add UID and GID,
-      because this is 1980 and people use ar(1) for archiving stuff they
-      might want that out of.
-  -D: Condescend at you in a command line error and explain that -D both
-      is and is not a valid option:
-        /usr/bin/strip: invalid option -- 'D'
-        Usage: /usr/bin/strip <option(s)> in-file(s)
-        Removes symbols and sections from files
-        The options are:
-        ...
-        -D --enable-deterministic-archives
-                    Produce deterministic output when stripping archives
-      So I agree that it's invalid, but I think we may be pronouncing that
-      second vowel differently.  They say in-VAL-id, I say IN-vuh-lid.
-
-  Nobody should ever have to run "strace -ttt -v -f -o make.strace make
-  all", just to discover the problem isn't even in there.
-  Related: rhbz#1310782
-
-* Tue Mar 28 2017 Peter Jones <pjones@redhat.com> - 3.0.5-8
-- Nerf the timestamps on our .o files while building, because RHEL's ar(1) is
-  horrible and silently ignores the 'D' option.  It's fine, I probably didn't
-  put it there for any reason.
-  Related: rhbz#1310782
-
-* Tue Mar 28 2017 Peter Jones <pjones@redhat.com> - 3.0.5-7
-- Call ar(1) in deterministic mode so our .a's are multipath clean.
-  Related: rhbz#1310782
-
-* Mon Mar 20 2017 Peter Jones <pjones@redhat.com> - 3.0.5-6
-- Also build the ia32 bits in a separate 32-bit package for other consumers.
-  Related: rhbz#1310782
-
-* Wed Mar 15 2017 Peter Jones <pjones@redhat.com> - 3.0.5-5
-- Fix a codegin bug that makes it want libgcc_s (but not know it) on ia32.
-  Related: rhbz#1310782
-
-* Mon Mar 13 2017 Peter Jones <pjones@redhat.com> - 3.0.5-4
-- Package the ia32 bits somewhat better.
-  Related: rhbz#1310782
-
-* Mon Mar 13 2017 Peter Jones <pjones@redhat.com> - 3.0.5-3
-- Include ia32 bits in the x86_64 packages instead of making a separate
-  32-bit package
-  Resolves: rhbz#1310782
-
-* Mon Mar 06 2017 Peter Jones <pjones@redhat.com> - 3.0.5-2
-- Fix some bugs in the 3.0.5 release.
-  Related: rhbz#1310782
-
-* Thu Feb 02 2017 Peter Jones <pjones@redhat.com> - 3.0.5-1
-- Update to 3.0.5
-- Re-enable ia32 builds for the most hilarious changelog series...
-  Resolves: rhbz#1310782
-
-* Mon Jun 15 2015 Peter Jones <pjones@redhat.com> - 3.0.2-2
-- Fix .spec mismerge from upstream that causes ia32 to build.
-  Related: rhbz#1190191
-  Related: rhbz#1115843
-  Related: rhbz#1100048
-
-* Mon Jun 15 2015 Peter Jones <pjones@redhat.com> - 3.0.2-1
-- Update to 3.0.2
-  Related: rhbz#1190191
-  Related: rhbz#1115843
-  Related: rhbz#1100048
-- Fix base package requirement on subpackages
-
-* Fri Aug 22 2014 Kyle McMartin <kyle@fedoraproject.org> - 3.0w-0.1
-- New upstream version 3.0w
-- Add pjones' build fixes patch from that other distro.
-- Enable AArch64
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 3.0u-2
-- Mass rebuild 2013-12-27
-
 * Fri Oct 25 2013 Peter Jones <pjones@redhat.com> - 3.0u-1
 - Reflect that we're not supporting this on anything but x86_64.
   Related: rhbz#1017861

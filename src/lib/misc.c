@@ -111,7 +111,7 @@ SetMem (
 VOID
 CopyMem (
     IN VOID     *Dest,
-    IN CONST VOID     *Src,
+    IN VOID     *Src,
     IN UINTN    len
     )
 {
@@ -120,8 +120,8 @@ CopyMem (
 
 INTN
 CompareMem (
-    IN CONST VOID     *Dest,
-    IN CONST VOID     *Src,
+    IN VOID     *Dest,
+    IN VOID     *Src,
     IN UINTN    len
     )
 {
@@ -216,7 +216,6 @@ LibMemoryMap (
     // Initialize for GrowBuffer loop
     //
 
-    Status = EFI_SUCCESS;
     Buffer = NULL;
     BufferSize = sizeof(EFI_MEMORY_DESCRIPTOR);
 
@@ -319,48 +318,6 @@ LibDeleteVariable (
         FreePool(VarBuf);
     }
 
-    return (Status);
-}
-
-EFI_STATUS
-LibSetNVVariable (
-    IN CHAR16   *VarName,
-    IN EFI_GUID *VarGuid,
-    IN UINTN	 DataSize,
-    IN VOID     *Data
-    )
-{
-    EFI_STATUS  Status;
-
-    Status = uefi_call_wrapper(
-	    RT->SetVariable,
-	    5,
-	    VarName, VarGuid,
-	    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS | EFI_VARIABLE_NON_VOLATILE,
-	    DataSize, Data
-	    );
-    ASSERT (!EFI_ERROR(Status));
-    return (Status);
-}
-
-EFI_STATUS
-LibSetVariable (
-    IN CHAR16   *VarName,
-    IN EFI_GUID *VarGuid,
-    IN UINTN	 DataSize,
-    IN VOID     *Data
-    )
-{
-    EFI_STATUS  Status;
-
-    Status = uefi_call_wrapper(
-	    RT->SetVariable,
-	    5,
-	    VarName, VarGuid,
-	    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
-	    DataSize, Data
-	    );
-    ASSERT (!EFI_ERROR(Status));
     return (Status);
 }
 

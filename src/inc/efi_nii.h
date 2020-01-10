@@ -13,21 +13,20 @@ Revision history:
     2000-Feb-18 M(f)J   GUID updated.
                 Structure order changed for machine word alignment.
                 Added StringId[4] to structure.
-
+                
     2000-Feb-14 M(f)J   Genesis.
 --*/
 
-#define EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL_GUID \
+#define EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL \
     { 0xE18541CD, 0xF755, 0x4f73, {0x92, 0x8D, 0x64, 0x3C, 0x8A, 0x79, 0xB2, 0x29} }
 
-#define EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL_REVISION  0x00010000
-#define EFI_NETWORK_INTERFACE_IDENTIFIER_INTERFACE_REVISION EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL_REVISION
+#define EFI_NETWORK_INTERFACE_IDENTIFIER_INTERFACE_REVISION 0x00010000
 
 typedef enum {
     EfiNetworkInterfaceUndi = 1
 } EFI_NETWORK_INTERFACE_TYPE;
 
-typedef struct _EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL {
+typedef struct {
 
     UINT64 Revision;
     // Revision of the network interface identifier protocol interface.
@@ -67,12 +66,9 @@ typedef struct _EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL {
     // This is the network interface type and version number that will
     // be placed into DHCP option 94 (client network interface identifier).
     BOOLEAN Ipv6Supported;
-    UINT8   IfNum;	// interface number to be used with pxeid structure
-} EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL, EFI_NETWORK_INTERFACE_IDENTIFIER_INTERFACE;
+	UINT8   IfNum;	// interface number to be used with pxeid structure
+} EFI_NETWORK_INTERFACE_IDENTIFIER_INTERFACE;
 
-// Note: Because it conflicted with the EDK2 struct name, the
-// 'EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL' GUID definition,
-// from older versions of gnu-efi, is now obsoleted.
-// Use 'EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL_GUID' instead.
+extern EFI_GUID NetworkInterfaceIdentifierProtocol;
 
 #endif // _EFI_NII_H

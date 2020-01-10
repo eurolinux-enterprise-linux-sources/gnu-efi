@@ -233,13 +233,9 @@ typedef uint32_t   UINTN;
 
 //
 // When build similiar to FW, then link everything together as
-// one big module. For the MSVC toolchain, we simply tell the
-// linker what our driver init function is using /ENTRY.
+// one big module.
 //
-#if defined(_MSC_EXTENSIONS)
-    #define EFI_DRIVER_ENTRY_POINT(InitFunction) \
-        __pragma(comment(linker, "/ENTRY:" # InitFunction))
-#else
+
     #define EFI_DRIVER_ENTRY_POINT(InitFunction)    \
         UINTN                                       \
         InitializeDriver (                          \
@@ -256,7 +252,6 @@ typedef uint32_t   UINTN;
             EFI_SYSTEM_TABLE *systab                \
             ) __attribute__((weak,                  \
                     alias ("InitializeDriver")));
-#endif
 
     #define LOAD_INTERNAL_DRIVER(_if, type, name, entry)    \
             (_if)->LoadInternal(type, name, entry)
@@ -272,7 +267,7 @@ typedef uint32_t   UINTN;
 #ifdef NO_INTERFACE_DECL
 #define INTERFACE_DECL(x)
 #else
-#if defined(__GNUC__) || defined(_MSC_EXTENSIONS)
+#ifdef __GNUC__
 #define INTERFACE_DECL(x) struct x
 #else
 #define INTERFACE_DECL(x) typedef struct x
