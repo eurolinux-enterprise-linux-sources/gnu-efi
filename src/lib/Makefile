@@ -47,7 +47,7 @@ FILES = boxdraw smbios console crc data debug dpath  \
         error event guid hand hw init lock   \
         misc print sread str cmdline \
 	runtime/rtlock runtime/efirtlib runtime/rtstr runtime/vm runtime/rtdata  \
-	$(ARCH)/initplat $(ARCH)/math 
+	$(ARCH)/initplat $(ARCH)/math $(ARCH)/setjmp
 
 ifeq ($(ARCH),ia64)
 FILES += $(ARCH)/salpal $(ARCH)/palproc
@@ -58,12 +58,13 @@ FILES += $(ARCH)/callwrap $(ARCH)/efi_stub
 endif
 
 ifeq ($(ARCH),arm)
-FILES += $(ARCH)/lib1funcs $(ARCH)/div64
+FILES += $(ARCH)/uldiv $(ARCH)/ldivmod $(ARCH)/div $(ARCH)/llsl $(ARCH)/llsr \
+	 $(ARCH)/mullu
 endif
 
 OBJS  = $(FILES:%=%.o)
 
-SUBDIRS = ia32 x86_64 ia64 aarch64 arm runtime
+SUBDIRS = ia32 x86_64 ia64 aarch64 arm mips64el runtime
 
 LIBDIRINSTALL = $(INSTALLROOT)$(LIBDIR)
 

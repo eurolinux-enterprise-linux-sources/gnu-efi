@@ -33,40 +33,101 @@ Revision History
 //
 
 extern EFI_SYSTEM_TABLE         *ST;
+#define gST                      ST
 extern EFI_BOOT_SERVICES        *BS;
+#define gBS                      BS
 extern EFI_RUNTIME_SERVICES     *RT;
+#define gRT                      RT
 
-extern EFI_GUID DevicePathProtocol;
-extern EFI_GUID LoadedImageProtocol;
-extern EFI_GUID TextInProtocol;
-extern EFI_GUID TextOutProtocol;
-extern EFI_GUID BlockIoProtocol;
-extern EFI_GUID DiskIoProtocol;
-extern EFI_GUID FileSystemProtocol;
-extern EFI_GUID LoadFileProtocol;
-extern EFI_GUID DeviceIoProtocol;
+extern EFI_GUID gEfiDevicePathProtocolGuid;
+#define DevicePathProtocol gEfiDevicePathProtocolGuid
+extern EFI_GUID gEfiDevicePathToTextProtocolGuid;
+#define DevicePathToTextProtocol gEfiDevicePathToTextProtocolGuid
+extern EFI_GUID gEfiDevicePathFromTextProtocolGuid;
+#define DevicePathFromTextProtocol gEfiDevicePathFromTextProtocolGuid
+extern EFI_GUID gEfiLoadedImageProtocolGuid;
+#define LoadedImageProtocol gEfiLoadedImageProtocolGuid
+extern EFI_GUID gEfiSimpleTextInProtocolGuid;
+#define TextInProtocol gEfiSimpleTextInProtocolGuid
+extern EFI_GUID gEfiSimpleTextOutProtocolGuid;
+#define TextOutProtocol gEfiSimpleTextOutProtocolGuid
+extern EFI_GUID gEfiGraphicsOutputProtocolGuid;
+#define GraphicsOutputProtocol gEfiGraphicsOutputProtocolGuid
+extern EFI_GUID gEfiEdidDiscoveredProtocolGuid;
+#define EdidDiscoveredProtocol gEfiEdidDiscoveredProtocolGuid
+extern EFI_GUID gEfiEdidActiveProtocolGuid;
+#define EdidActiveProtocol gEfiEdidActiveProtocolGuid
+extern EFI_GUID gEfiEdidOverrideProtocolGuid;
+#define EdidOverrideProtocol gEfiEdidOverrideProtocolGuid
+extern EFI_GUID gEfiBlockIoProtocolGuid;
+#define BlockIoProtocol gEfiBlockIoProtocolGuid
+extern EFI_GUID gEfiBlockIo2ProtocolGuid;
+#define BlockIo2Protocol gEfiBlockIo2ProtocolGuid
+extern EFI_GUID gEfiDiskIoProtocolGuid;
+#define DiskIoProtocol gEfiDiskIoProtocolGuid
+extern EFI_GUID gEfiDiskIo2ProtocolGuid;
+#define DiskIo2Protocol gEfiDiskIo2ProtocolGuid
+extern EFI_GUID gEfiSimpleFileSystemProtocolGuid;
+#define FileSystemProtocol gEfiSimpleFileSystemProtocolGuid
+extern EFI_GUID gEfiLoadFileProtocolGuid;
+#define LoadFileProtocol gEfiLoadFileProtocolGuid
+extern EFI_GUID gEfiDeviceIoProtocolGuid;
+#define DeviceIoProtocol gEfiDeviceIoProtocolGuid
 extern EFI_GUID VariableStoreProtocol;
 extern EFI_GUID LegacyBootProtocol;
-extern EFI_GUID UnicodeCollationProtocol;
-extern EFI_GUID SerialIoProtocol;
+extern EFI_GUID gEfiUnicodeCollationProtocolGuid;
+#define UnicodeCollationProtocol gEfiUnicodeCollationProtocolGuid
+extern EFI_GUID gEfiSerialIoProtocolGuid;
+#define SerialIoProtocol gEfiSerialIoProtocolGuid
 extern EFI_GUID VgaClassProtocol;
 extern EFI_GUID TextOutSpliterProtocol;
 extern EFI_GUID ErrorOutSpliterProtocol;
 extern EFI_GUID TextInSpliterProtocol;
-extern EFI_GUID SimpleNetworkProtocol;
-extern EFI_GUID PxeBaseCodeProtocol;
-extern EFI_GUID PxeCallbackProtocol;
-extern EFI_GUID NetworkInterfaceIdentifierProtocol;
-extern EFI_GUID UiProtocol;
+extern EFI_GUID gEfiSimpleNetworkProtocolGuid;
+#define SimpleNetworkProtocol gEfiSimpleNetworkProtocolGuid
+extern EFI_GUID gEfiPxeBaseCodeProtocolGuid;
+#define PxeBaseCodeProtocol gEfiPxeBaseCodeProtocolGuid
+extern EFI_GUID gEfiPxeBaseCodeCallbackProtocolGuid;
+#define PxeCallbackProtocol gEfiPxeBaseCodeCallbackProtocolGuid
+extern EFI_GUID gEfiNetworkInterfaceIdentifierProtocolGuid;
+#define NetworkInterfaceIdentifierProtocol gEfiNetworkInterfaceIdentifierProtocolGuid
+extern EFI_GUID gEFiUiInterfaceProtocolGuid;
+#define UiProtocol gEFiUiInterfaceProtocolGuid
 extern EFI_GUID InternalShellProtocol;
-extern EFI_GUID PciIoProtocol;
+extern EFI_GUID gEfiPciIoProtocolGuid;
+#define PciIoProtocol gEfiPciIoProtocolGuid
+extern EFI_GUID gEfiPciRootBridgeIoProtocolGuid;
+extern EFI_GUID gEfiDriverBindingProtocolGuid;
+#define DriverBindingProtocol gEfiDriverBindingProtocolGuid
+extern EFI_GUID gEfiComponentNameProtocolGuid;
+#define ComponentNameProtocol gEfiComponentNameProtocolGuid
+extern EFI_GUID gEfiComponentName2ProtocolGuid;
+#define ComponentName2Protocol gEfiComponentName2ProtocolGuid
+extern EFI_GUID gEfiHashProtocolGuid;
+#define HashProtocol gEfiHashProtocolGuid
+extern EFI_GUID gEfiPlatformDriverOverrideProtocolGuid;
+#define PlatformDriverOverrideProtocol gEfiPlatformDriverOverrideProtocolGuid
+extern EFI_GUID gEfiBusSpecificDriverOverrideProtocolGuid;
+#define BusSpecificDriverOverrideProtocol gEfiBusSpecificDriverOverrideProtocolGuid
+extern EFI_GUID gEfiDriverFamilyOverrideProtocolGuid;
+#define DriverFamilyOverrideProtocol gEfiDriverFamilyOverrideProtocolGuid
+extern EFI_GUID gEfiEbcProtocolGuid;
 
-extern EFI_GUID EfiGlobalVariable;
-extern EFI_GUID GenericFileInfo;
-extern EFI_GUID FileSystemInfo;
-extern EFI_GUID FileSystemVolumeLabelInfo;
-extern EFI_GUID PcAnsiProtocol;
-extern EFI_GUID Vt100Protocol;
+extern EFI_GUID gEfiGlobalVariableGuid;
+#define EfiGlobalVariable gEfiGlobalVariableGuid
+extern EFI_GUID gEfiFileInfoGuid;
+#define GenericFileInfo gEfiFileInfoGuid
+extern EFI_GUID gEfiFileSystemInfoGuid;
+#define FileSystemInfo gEfiFileSystemInfoGuid
+extern EFI_GUID gEfiFileSystemVolumeLabelInfoIdGuid;
+#define FileSystemVolumeLabelInfo gEfiFileSystemVolumeLabelInfoIdGuid
+extern EFI_GUID gEfiPcAnsiGuid;
+#define PcAnsiProtocol gEfiPcAnsiGuid
+extern EFI_GUID gEfiVT100Guid;
+#define Vt100Protocol gEfiVT100Guid
+extern EFI_GUID gEfiVT100PlusGuid;
+extern EFI_GUID gEfiVTUTF8Guid;
+
 extern EFI_GUID NullGuid;
 extern EFI_GUID UnknownDevice;
 
@@ -80,6 +141,9 @@ extern EFI_GUID SalSystemTableGuid;
 
 extern EFI_GUID SimplePointerProtocol;
 extern EFI_GUID AbsolutePointerProtocol;
+
+extern EFI_GUID gEfiDebugImageInfoTableGuid;
+extern EFI_GUID gEfiDebugSupportProtocolGuid;
 
 //
 // EFI Variable strings
@@ -190,7 +254,7 @@ VOID
 SetMem (
     IN VOID     *Buffer,
     IN UINTN    Size,
-    IN UINT8    Value    
+    IN UINT8    Value
     );
 
 VOID
@@ -267,7 +331,7 @@ UINTN
 strlena (
     IN CONST CHAR8    *s1
     );
-    
+
 UINTN
 strcmpa (
     IN CONST CHAR8    *s1,
@@ -291,13 +355,13 @@ Atoi (
     CONST CHAR16  *str
     );
 
-BOOLEAN 
+BOOLEAN
 MetaMatch (
     IN CHAR16   *String,
     IN CHAR16   *Pattern
     );
 
-BOOLEAN 
+BOOLEAN
 MetaiMatch (
     IN CHAR16   *String,
     IN CHAR16   *Pattern
@@ -397,41 +461,41 @@ IInput (
 
 UINTN
 Print (
-    IN CHAR16   *fmt,
+    IN CONST CHAR16   *fmt,
     ...
     );
 
 UINTN
 VPrint (
-    IN CHAR16   *fmt,
-    va_list     args
+    IN CONST CHAR16   *fmt,
+    va_list           args
     );
 
 UINTN
 SPrint (
-    OUT CHAR16  *Str,
-    IN UINTN    StrSize,
-    IN CHAR16   *fmt,
+    OUT CHAR16        *Str,
+    IN UINTN          StrSize,
+    IN CONST CHAR16   *fmt,
     ...
     );
 
 UINTN
 VSPrint (
-    OUT CHAR16  *Str,
-    IN UINTN    StrSize,
-    IN CHAR16   *fmt,
-    va_list     args
+    OUT CHAR16        *Str,
+    IN UINTN          StrSize,
+    IN CONST CHAR16   *fmt,
+    va_list           args
     );
 
 CHAR16 *
 VPoolPrint (
-    IN CHAR16           *fmt,
+    IN CONST CHAR16     *fmt,
     va_list             args
     );
 
 CHAR16 *
 PoolPrint (
-    IN CHAR16           *fmt,
+    IN CONST CHAR16     *fmt,
     ...
     );
 
@@ -444,22 +508,22 @@ typedef struct {
 CHAR16 *
 CatPrint (
     IN OUT POOL_PRINT   *Str,
-    IN CHAR16           *fmt,
+    IN CONST CHAR16     *fmt,
     ...
     );
 
 UINTN
 PrintAt (
-    IN UINTN    Column,
-    IN UINTN    Row,
-    IN CHAR16   *fmt,
+    IN UINTN         Column,
+    IN UINTN         Row,
+    IN CONST CHAR16  *fmt,
     ...
     );
 
 UINTN
 IPrint (
     IN SIMPLE_TEXT_OUTPUT_INTERFACE    *Out,
-    IN CHAR16                          *fmt,
+    IN CONST CHAR16                    *fmt,
     ...
     );
 
@@ -468,13 +532,13 @@ IPrintAt (
     IN SIMPLE_TEXT_OUTPUT_INTERFACE     *Out,
     IN UINTN                            Column,
     IN UINTN                            Row,
-    IN CHAR16                           *fmt,
+    IN CONST CHAR16                     *fmt,
     ...
     );
 
 UINTN
 APrint (
-    IN CHAR8    *fmt,
+    IN CONST CHAR8    *fmt,
     ...
     );
 
@@ -489,6 +553,13 @@ ValueToString (
     IN CHAR16   *Buffer,
     IN BOOLEAN  Comma,
     IN INT64    v
+    );
+
+VOID
+FloatToString (
+    IN CHAR16   *Buffer,
+    IN BOOLEAN  Comma,
+    IN double    v
     );
 
 VOID
@@ -788,7 +859,7 @@ OpenSimpleReadFile (
     IN VOID                     *SourceBuffer   OPTIONAL,
     IN UINTN                    SourceSize,
     IN OUT EFI_DEVICE_PATH      **FilePath,
-    OUT EFI_HANDLE              *DeviceHandle,    
+    OUT EFI_HANDLE              *DeviceHandle,
     OUT SIMPLE_READ_FILE        *SimpleReadHandle
     );
 
@@ -829,7 +900,7 @@ LibGetSystemConfigurationTable(
 
 BOOLEAN
 LibIsValidTextGraphics (
-    IN  CHAR16  Graphic,   
+    IN  CHAR16  Graphic,
     OUT CHAR8   *PcAnsi,    OPTIONAL
     OUT CHAR8   *Ascii      OPTIONAL
     );
@@ -870,34 +941,34 @@ InitializeGlobalIoDevice (
         IN  EFI_DEVICE_PATH             *DevicePath,
         IN  EFI_GUID                    *Protocol,
         IN  CHAR8                       *ErrorStr,
-        OUT EFI_DEVICE_IO_INTERFACE     **GlobalIoFncs 
+        OUT EFI_DEVICE_IO_INTERFACE     **GlobalIoFncs
         );
 
-UINT32 
+UINT32
 ReadPort (
-        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs, 
+        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
         IN  EFI_IO_WIDTH                Width,
         IN  UINTN                       Port
         );
 
-UINT32 
+UINT32
 WritePort (
-        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs, 
+        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
         IN  EFI_IO_WIDTH                Width,
         IN  UINTN                       Port,
         IN  UINTN                       Data
         );
 
-UINT32 
+UINT32
 ReadPciConfig (
-        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs, 
+        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
         IN  EFI_IO_WIDTH                Width,
         IN  UINTN                       Port
         );
 
-UINT32 
+UINT32
 WritePciConfig (
-        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs, 
+        IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
         IN  EFI_IO_WIDTH                Width,
         IN  UINTN                       Port,
         IN  UINTN                       Data

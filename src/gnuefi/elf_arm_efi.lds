@@ -4,6 +4,7 @@ ENTRY(_start)
 SECTIONS
 {
   .text 0x0 : {
+    _text = .;
     *(.text.head)
     *(.text)
     *(.text.*)
@@ -11,15 +12,17 @@ SECTIONS
     *(.srodata)
     *(.rodata*)
     . = ALIGN(16);
-    _etext = .;
   }
+  _etext = .;
+  _text_size = . - _text;
   .dynamic  : { *(.dynamic) }
   .data :
   {
+   _data = .;
    *(.sdata)
    *(.data)
    *(.data1)
-   *(.data)
+   *(.data.*)
    *(.got.plt)
    *(.got)
 
@@ -31,10 +34,12 @@ SECTIONS
    *(.scommon)
    *(.dynbss)
    *(.bss)
+   *(.bss.*)
    *(COMMON)
    . = ALIGN(16);
    _bss_end = .;
   }
+
   .rel.dyn : { *(.rel.dyn) }
   .rel.plt : { *(.rel.plt) }
   .rel.got : { *(.rel.got) }
@@ -47,6 +52,7 @@ SECTIONS
   . = ALIGN(4096);
   .dynstr   : { *(.dynstr) }
   . = ALIGN(4096);
+  .note.gnu.build-id : { *(.note.gnu.build-id) }
   /DISCARD/ :
   {
     *(.rel.reloc)

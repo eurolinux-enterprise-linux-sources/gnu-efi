@@ -1,7 +1,7 @@
 Summary: Development Libraries and headers for EFI
 Name: gnu-efi
-Version: 3.0.2
-Release: 2%{?dist}
+Version: 3.0.5
+Release: 9%{?dist}%{?buildid}
 Epoch: 1
 Group: Development/System
 License: BSD 
@@ -9,9 +9,40 @@ URL: ftp://ftp.hpl.hp.com/pub/linux-ia64
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExclusiveArch: x86_64 aarch64
 BuildRequires: git
+%ifarch x86_64
+BuildRequires: glibc-static(x86-32) glibc-devel(x86-32)
+#BuildRequires: glibc-devel(x86-32)
+%endif
 Source: http://superb-dca2.dl.sourceforge.net/project/gnu-efi/gnu-efi-%{version}.tar.bz2
 
+Patch0001: 0001-Mark-our-explicit-fall-through-so-Wextra-will-work-i.patch
+Patch0002: 0002-Fix-some-types-gcc-doesn-t-like.patch
+Patch0003: 0003-Fix-arm-build-paths-in-the-makefile.patch
+Patch0004: 0004-Work-around-Werror-maybe-uninitialized-not-being-ver.patch
+Patch0005: 0005-Fix-a-sign-error-in-the-debughook-example-app.patch
+Patch0006: 0006-Fix-typedef-of-EFI_PXE_BASE_CODE.patch
+Patch0007: 0007-make-clang-not-complain-about-fno-merge-constants.patch
+Patch0008: 0008-Fix-another-place-clang-complains-about.patch
+Patch0009: 0009-route80h-remove-some-dead-code.patch
+Patch0010: 0010-Make-clang-not-complain-about-the-debughook-s-optimi.patch
+Patch0011: 0011-Nerf-Werror-pragma-away.patch
+Patch0012: 0012-Make-ia32-use-our-own-div-asm-on-gnu-C-as-well.patch
+Patch0013: 0013-Call-ar-in-deterministic-mode.patch
+
 %define debug_package %{nil}
+
+# brp-strip-static-archive will senselessly /add/ timestamps and uid/gid
+# data to our .a and make them not multilib clean if we don't have this.
+# Note that if we don't have the shell quotes there, -p becomes $2 on its
+# invocation, and so it completely ignores it.
+#
+# Also note that if we try to use -D as we should (so it doesn't add
+# uid/gid), strip(1) from binutils-2.25.1-22.base.el7.x86_64 throws a
+# syntax error.
+#
+# True story.
+#
+%global __strip "%{__strip} -p"
 
 # Figure out the right file path to use
 %global efidir %(eval echo $(grep ^ID= /etc/os-release | sed -e 's/^ID=//' -e 's/rhel/redhat/'))
@@ -21,6 +52,9 @@ Source: http://superb-dca2.dl.sourceforge.net/project/gnu-efi/gnu-efi-%{version}
 %endif
 %ifarch aarch64
 %global efiarch aarch64
+%endif
+%ifarch %{ix86}
+%global efiarch ia32
 %endif
 
 %description
@@ -60,25 +94,34 @@ git config --unset user.name
 # Package cannot build with %{?_smp_mflags}.
 make
 make apps
+%ifarch x86_64
+setarch linux32 -B make ARCH=ia32 PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib
+setarch linux32 -B make ARCH=ia32 PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib apps
+%endif
 
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}/%{_libdir}
-
-make PREFIX=%{_prefix} LIBDIR=%{_libdir} INSTALLROOT=%{buildroot} install
-
 mkdir -p %{buildroot}/%{_libdir}/gnuefi
+mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/%{efiarch}
+make PREFIX=%{_prefix} LIBDIR=%{_libdir} INSTALLROOT=%{buildroot} install
 mv %{buildroot}/%{_libdir}/*.lds %{buildroot}/%{_libdir}/*.o %{buildroot}/%{_libdir}/gnuefi
+mv %{efiarch}/apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/%{efiarch}/
 
-mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/
-mv %{efiarch}/apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/
+%ifarch x86_64
+mkdir -p %{buildroot}/%{_prefix}/lib/gnuefi
+mkdir -p %{buildroot}/boot/efi/EFI/%{efidir}/ia32
+
+setarch linux32 -B make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} ARCH=ia32 install
+mv %{buildroot}/%{_prefix}/lib/*.{lds,o} %{buildroot}/%{_prefix}/lib/gnuefi/
+mv ia32/apps/{route80h.efi,modelist.efi} %{buildroot}/boot/efi/EFI/%{efidir}/ia32/
+%endif
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_libdir}/*
+%{_prefix}/lib*/*
 
 %files devel
 %defattr(-,root,root,-)
@@ -87,9 +130,87 @@ rm -rf %{buildroot}
 
 %files utils
 %dir /boot/efi/EFI/%{efidir}/
-%attr(0644,root,root) /boot/efi/EFI/%{efidir}/*.efi
+%attr(0644,root,root) /boot/efi/EFI/%{efidir}/*/*.efi
 
 %changelog
+* Thu Mar 30 2017 Peter Jones <pjones@redhat.com> - 3.0.5-9
+- Just don't build the .i686 package at all.  After a scratch build, it's
+  clear that "strip -p" is not good enough, because our different builders
+  have non-matching UIDs for the build process, and -p adds uid/gid to the
+  archive.  So there's no way to fix the multiarch conflict here without
+  either fixing that or fixing strip(1) with:
+  https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=patch;h=7a093a78
+  We don't strictly need the .i686 package anyway, since we've moved to
+  making the dependent binaries all build the ia32 bits on x86_64 for
+  other reasons.  Related: rhbz#1310782
+
+* Thu Mar 30 2017 Peter Jones <pjones@redhat.com> - 3.0.5-9
+- One more attempt at nerfing timestamps.  It's surprising how broken this
+  can be.
+
+  "ar rDv" works just fine, but
+  /usr/lib/rpm/redhat/brp-strip-static-archive is calling "%{__strip} -g
+  $for_each.a", and it's rewriting our binary from ts/uid/gid of 0/0/0 to
+  $epoch/$UID/$GID.  Awesomely /usr/bin/strip it seems to have 3 modes of
+  operation:
+  -U: the default, which adds $epoch/$UID/$GID to your binary archive
+      instead of just removing stuff.  Clearly the Principle of Least
+      Surprise is strong here.
+  -p: preserve the timestamp from the original .a, but add UID and GID,
+      because this is 1980 and people use ar(1) for archiving stuff they
+      might want that out of.
+  -D: Condescend at you in a command line error and explain that -D both
+      is and is not a valid option:
+        /usr/bin/strip: invalid option -- 'D'
+        Usage: /usr/bin/strip <option(s)> in-file(s)
+        Removes symbols and sections from files
+        The options are:
+        ...
+        -D --enable-deterministic-archives
+                    Produce deterministic output when stripping archives
+      So I agree that it's invalid, but I think we may be pronouncing that
+      second vowel differently.  They say in-VAL-id, I say IN-vuh-lid.
+
+  Nobody should ever have to run "strace -ttt -v -f -o make.strace make
+  all", just to discover the problem isn't even in there.
+  Related: rhbz#1310782
+
+* Tue Mar 28 2017 Peter Jones <pjones@redhat.com> - 3.0.5-8
+- Nerf the timestamps on our .o files while building, because RHEL's ar(1) is
+  horrible and silently ignores the 'D' option.  It's fine, I probably didn't
+  put it there for any reason.
+  Related: rhbz#1310782
+
+* Tue Mar 28 2017 Peter Jones <pjones@redhat.com> - 3.0.5-7
+- Call ar(1) in deterministic mode so our .a's are multipath clean.
+  Related: rhbz#1310782
+
+* Mon Mar 20 2017 Peter Jones <pjones@redhat.com> - 3.0.5-6
+- Also build the ia32 bits in a separate 32-bit package for other consumers.
+  Related: rhbz#1310782
+
+* Wed Mar 15 2017 Peter Jones <pjones@redhat.com> - 3.0.5-5
+- Fix a codegin bug that makes it want libgcc_s (but not know it) on ia32.
+  Related: rhbz#1310782
+
+* Mon Mar 13 2017 Peter Jones <pjones@redhat.com> - 3.0.5-4
+- Package the ia32 bits somewhat better.
+  Related: rhbz#1310782
+
+* Mon Mar 13 2017 Peter Jones <pjones@redhat.com> - 3.0.5-3
+- Include ia32 bits in the x86_64 packages instead of making a separate
+  32-bit package
+  Resolves: rhbz#1310782
+
+* Mon Mar 06 2017 Peter Jones <pjones@redhat.com> - 3.0.5-2
+- Fix some bugs in the 3.0.5 release.
+  Related: rhbz#1310782
+
+* Thu Feb 02 2017 Peter Jones <pjones@redhat.com> - 3.0.5-1
+- Update to 3.0.5
+- Re-enable ia32 builds for the most hilarious changelog series...
+  Resolves: rhbz#1310782
+
 * Mon Jun 15 2015 Peter Jones <pjones@redhat.com> - 3.0.2-2
 - Fix .spec mismerge from upstream that causes ia32 to build.
   Related: rhbz#1190191

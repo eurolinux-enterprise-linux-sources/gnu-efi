@@ -107,8 +107,6 @@ EFI_STATUS
 // EFI Events
 //
 
-
-
 #define EVT_TIMER                           0x80000000
 #define EVT_RUNTIME                         0x40000000
 #define EVT_RUNTIME_CONTEXT                 0x20000000
@@ -120,7 +118,18 @@ EFI_STATUS
 #define EVT_SIGNAL_VIRTUAL_ADDRESS_CHANGE   0x60000202
 
 #define EVT_EFI_SIGNAL_MASK                 0x000000FF
-#define EVT_EFI_SIGNAL_MAX                  2
+#define EVT_EFI_SIGNAL_MAX                  4
+
+#define EFI_EVENT_TIMER                         EVT_TIMER
+#define EFI_EVENT_RUNTIME                       EVT_RUNTIME
+#define EFI_EVENT_RUNTIME_CONTEXT               EVT_RUNTIME_CONTEXT
+#define EFI_EVENT_NOTIFY_WAIT                   EVT_NOTIFY_WAIT
+#define EFI_EVENT_NOTIFY_SIGNAL                 EVT_NOTIFY_SIGNAL
+#define EFI_EVENT_SIGNAL_EXIT_BOOT_SERVICES     EVT_SIGNAL_EXIT_BOOT_SERVICES
+#define EFI_EVENT_SIGNAL_VIRTUAL_ADDRESS_CHANGE EVT_SIGNAL_VIRTUAL_ADDRESS_CHANGE
+#define EFI_EVENT_EFI_SIGNAL_MASK               EVT_EFI_SIGNAL_MASK
+#define EFI_EVENT_EFI_SIGNAL_MAX                EVT_EFI_SIGNAL_MAX
+
 
 typedef
 VOID
@@ -184,11 +193,14 @@ EFI_STATUS
 // Task priority level
 //
 
-#define TPL_APPLICATION    4
-#define TPL_CALLBACK       8
-#define TPL_NOTIFY        16 
-#define TPL_HIGH_LEVEL    31 
-
+#define TPL_APPLICATION       4
+#define TPL_CALLBACK          8
+#define TPL_NOTIFY           16
+#define TPL_HIGH_LEVEL       31
+#define EFI_TPL_APPLICATION  TPL_APPLICATION
+#define EFI_TPL_CALLBACK     TPL_CALLBACK
+#define EFI_TPL_NOTIFY       TPL_NOTIFY
+#define EFI_TPL_HIGH_LEVEL   TPL_HIGH_LEVEL
 typedef
 EFI_TPL
 (EFIAPI *EFI_RAISE_TPL) (
@@ -314,6 +326,22 @@ EFI_STATUS
 #define EFI_IMAGE_MACHINE_IA64      0x0200
 #endif
 
+#if !defined(EFI_IMAGE_MACHINE_EBC)
+#define EFI_IMAGE_MACHINE_EBC      0x0EBC
+#endif
+
+#if !defined(EFI_IMAGE_MACHINE_X64)
+#define EFI_IMAGE_MACHINE_X64       0x8664
+#endif
+
+#if !defined(EFI_IMAGE_MACHINE_ARMTHUMB_MIXED)
+#define EFI_IMAGE_MACHINE_ARMTHUMB_MIXED 0x01C2
+#endif
+
+#if !defined(EFI_IMAGE_MACHINE_AARCH64)
+#define EFI_IMAGE_MACHINE_AARCH64   0xAA64
+#endif
+
 // Image Entry prototype
 
 typedef 
@@ -351,15 +379,9 @@ EFI_STATUS
     IN CHAR16                       *ExitData OPTIONAL
     );
 
-typedef 
-EFI_STATUS
-(EFIAPI *EFI_IMAGE_UNLOAD) (
-    IN EFI_HANDLE                   ImageHandle
-    );
-
 
 // Image handle
-#define LOADED_IMAGE_PROTOCOL      \
+/*#define LOADED_IMAGE_PROTOCOL      \
     { 0x5B1B31A1, 0x9562, 0x11d2, {0x8E, 0x3F, 0x00, 0xA0, 0xC9, 0x69, 0x72, 0x3B} }
 
 #define EFI_IMAGE_INFORMATION_REVISION      0x1000
@@ -386,7 +408,7 @@ typedef struct {
     // If the driver image supports a dynamic unload request
     EFI_IMAGE_UNLOAD                Unload;
 
-} EFI_LOADED_IMAGE;
+} EFI_LOADED_IMAGE;*/
 
 
 typedef
@@ -894,6 +916,9 @@ typedef struct _EFI_BOOT_SERVICES {
 
 #define SMBIOS_TABLE_GUID    \
     { 0xeb9d2d31, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d} }
+
+#define SMBIOS3_TABLE_GUID    \
+    { 0xf2fd1544, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0xe3, 0x94} }
 
 #define SAL_SYSTEM_TABLE_GUID    \
     { 0xeb9d2d32, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d} }
