@@ -1,7 +1,7 @@
 Summary: Development Libraries and headers for EFI
 Name: gnu-efi
 Version: 3.0u
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: Development/System
 License: BSD 
 URL: ftp://ftp.hpl.hp.com/pub/linux-ia64
@@ -86,6 +86,9 @@ rm -rf %{buildroot}
 %attr(0644,root,root) /boot/efi/EFI/%{efidir}/*.efi
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 3.0u-2
+- Mass rebuild 2013-12-27
+
 * Fri Oct 25 2013 Peter Jones <pjones@redhat.com> - 3.0u-1
 - Reflect that we're not supporting this on anything but x86_64.
   Related: rhbz#1017861
