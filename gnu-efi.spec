@@ -1,7 +1,8 @@
 Summary: Development Libraries and headers for EFI
 Name: gnu-efi
-Version: 3.0.5
-Release: 9%{?dist}%{?buildid}
+Version: 3.0.8
+%global tarball_version 3.0.6
+Release: 2%{?dist}%{?buildid}
 Epoch: 1
 Group: Development/System
 License: BSD 
@@ -10,24 +11,41 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExclusiveArch: x86_64 aarch64
 BuildRequires: git
 %ifarch x86_64
-BuildRequires: glibc-static(x86-32) glibc-devel(x86-32)
+BuildRequires: glibc32
 #BuildRequires: glibc-devel(x86-32)
 %endif
-Source: http://superb-dca2.dl.sourceforge.net/project/gnu-efi/gnu-efi-%{version}.tar.bz2
+Source: http://superb-dca2.dl.sourceforge.net/project/gnu-efi/gnu-efi-%{tarball_version}.tar.bz2
 
-Patch0001: 0001-Mark-our-explicit-fall-through-so-Wextra-will-work-i.patch
-Patch0002: 0002-Fix-some-types-gcc-doesn-t-like.patch
-Patch0003: 0003-Fix-arm-build-paths-in-the-makefile.patch
-Patch0004: 0004-Work-around-Werror-maybe-uninitialized-not-being-ver.patch
-Patch0005: 0005-Fix-a-sign-error-in-the-debughook-example-app.patch
-Patch0006: 0006-Fix-typedef-of-EFI_PXE_BASE_CODE.patch
-Patch0007: 0007-make-clang-not-complain-about-fno-merge-constants.patch
-Patch0008: 0008-Fix-another-place-clang-complains-about.patch
-Patch0009: 0009-route80h-remove-some-dead-code.patch
-Patch0010: 0010-Make-clang-not-complain-about-the-debughook-s-optimi.patch
-Patch0011: 0011-Nerf-Werror-pragma-away.patch
-Patch0012: 0012-Make-ia32-use-our-own-div-asm-on-gnu-C-as-well.patch
-Patch0013: 0013-Call-ar-in-deterministic-mode.patch
+# to make rpmlint shut up
+%define lib %{nil}lib%{nil}
+
+Patch0001: 0001-PATCH-Disable-AVX-instruction-set-on-IA32-and-x86_64.patch
+Patch0002: 0002-Use-ARFLAGS-when-invoking-ar.patch
+Patch0003: 0003-Stripped-diff-for-makefile.patch
+Patch0004: 0004-Make-sure-stdint.h-is-always-used-with-MSVC-on-ARM-A.patch
+Patch0005: 0005-Add-EFI_DRIVER_ENTRY_POINT-support-for-MSVC-ARM64.patch
+Patch0006: 0006-Move-memcpy-memset-definition-to-global-init.c.patch
+Patch0007: 0007-Bump-revision-from-VERSION-3.0.6-to-VERSION-3.0.7.patch
+Patch0008: 0008-Currently-we-have-DivU64x32-on-ia32-but-it-tries-to-.patch
+Patch0009: 0009-gnuefi-preserve-.gnu.hash-sections-unbreaks-elilo-on.patch
+Patch0010: 0010-gnu-efi-fix-lib-ia64-setjmp.S-IA-64-build-failure.patch
+Patch0011: 0011-Fix-some-types-gcc-doesn-t-like.patch
+Patch0012: 0012-Fix-arm-build-paths-in-the-makefile.patch
+Patch0013: 0013-Work-around-Werror-maybe-uninitialized-not-being-ver.patch
+Patch0014: 0014-Fix-a-sign-error-in-the-debughook-example-app.patch
+Patch0015: 0015-Fix-typedef-of-EFI_PXE_BASE_CODE.patch
+Patch0016: 0016-make-clang-not-complain-about-fno-merge-all-constant.patch
+Patch0017: 0017-Fix-another-place-clang-complains-about.patch
+Patch0018: 0018-gnu-efi-add-some-more-common-string-functions.patch
+Patch0019: 0019-Add-D-to-print-device-paths.patch
+Patch0020: 0020-Make-ARCH-overrideable-on-the-command-line.patch
+Patch0021: 0021-apps-Add-bltgrid-and-lfbgrid-and-add-error-checks-to.patch
+Patch0022: 0022-Nerf-Werror-pragma-away.patch
+Patch0023: 0023-Call-ar-in-deterministic-mode.patch
+Patch0024: 0024-Add-debug-helper-applications.patch
+Patch0025: 0025-Bump-revision-from-VERSION-3.0.7-to-VERSION-3.0.8.patch
+Patch0026: 0026-Work-around-some-intptr_t-weirdnesses.patch
+Patch0027: 0027-Fix-a-minor-coverity-complaint-in-some-apps.patch
 
 %define debug_package %{nil}
 
@@ -76,10 +94,10 @@ Summary: Utilities for EFI systems
 Group: Applications/System
 
 %description utils
-This package contains utilties for debugging and developing EFI systems.
+This package contains utilities for debugging and developing EFI systems.
 
 %prep
-%setup -q -n gnu-efi-%{version}
+%setup -q -n gnu-efi-%{tarball_version}
 git init
 git config user.email "gnu-efi-owner@redhat.com"
 git config user.name "RHEL Ninjas"
@@ -91,7 +109,7 @@ git config --unset user.email
 git config --unset user.name
 
 %build
-# Package cannot build with %{?_smp_mflags}.
+# Package cannot build with %%{?_smp_mflags}.
 make
 make apps
 %ifarch x86_64
@@ -129,10 +147,22 @@ rm -rf %{buildroot}
 %{_includedir}/efi
 
 %files utils
-%dir /boot/efi/EFI/%{efidir}/
-%attr(0644,root,root) /boot/efi/EFI/%{efidir}/*/*.efi
+%dir %attr(0700,root,root) /boot/efi/EFI/%{efidir}/%{efiarch}/
+%attr(0700,root,root) /boot/efi/EFI/%{efidir}/%{efiarch}/*.efi
+%ifarch x86_64
+%dir %attr(0700,root,root) /boot/efi/EFI/%{efidir}/ia32/
+%attr(0700,root,root) /boot/efi/EFI/%{efidir}/ia32/*.efi
+%endif
 
 %changelog
+* Mon Jun 11 2018 Peter Jones <pjones@redhat.com> - 3.0.8-2
+- Fix some minor coverity complaints.
+  Related: rhbz#1570032
+
+* Fri Jun 08 2018 Peter Jones <pjones@redhat.com> - 3.0.8-1
+- Update to version required by fwupdate-12 and shim-15.
+  Related: rhbz#1570032
+
 * Thu Mar 30 2017 Peter Jones <pjones@redhat.com> - 3.0.5-9
 - Just don't build the .i686 package at all.  After a scratch build, it's
   clear that "strip -p" is not good enough, because our different builders
@@ -149,7 +179,7 @@ rm -rf %{buildroot}
   can be.
 
   "ar rDv" works just fine, but
-  /usr/lib/rpm/redhat/brp-strip-static-archive is calling "%{__strip} -g
+  /usr/lib/rpm/redhat/brp-strip-static-archive is calling "%%{__strip} -g
   $for_each.a", and it's rewriting our binary from ts/uid/gid of 0/0/0 to
   $epoch/$UID/$GID.  Awesomely /usr/bin/strip it seems to have 3 modes of
   operation:
